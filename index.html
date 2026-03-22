@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feliz Día de las Flores Amarillas</title>
+    <title>Feliz Día de las Flores Amarillas - Jardín Mágico</title>
     <style>
-        
+        /* --- ESTILOS GLOBALES Y CIELO --- */
         body, html {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
+            /* Fondo de cielo estrellado profundo con degradado */
             background: radial-gradient(circle at bottom, #12243e 0%, #060a13 100%);
             overflow: hidden;
             font-family: 'Arial Rounded MT Bold', 'Comic Sans MS', sans-serif;
@@ -18,10 +19,10 @@
             flex-direction: column;
             align-items: center;
             user-select: none;
-            -webkit-tap-highlight-color: transparent;
+            -webkit-tap-highlight-color: transparent; /* Evita el destello de toque en móviles */
         }
 
-        /* Estrellas sutiles */
+        /* Estrellas parpadeantes sutiles */
         .star {
             position: absolute;
             background-color: #fff;
@@ -36,7 +37,7 @@
             100% { opacity: 0.9; transform: scale(1.2); box-shadow: 0 0 8px #fff; }
         }
 
-        /* Títulos Glow */
+        /* --- TÍTULOS CON EFECTO NEÓN --- */
         .title {
             color: #fffb8f;
             text-align: center;
@@ -47,13 +48,14 @@
             z-index: 10;
         }
 
-        .sunflower {
+        .sunflower-emoji {
             font-size: 2rem;
             margin-top: 10px;
             filter: drop-shadow(0 0 10px #ffc107);
             z-index: 10;
         }
 
+        /* --- TEXTO DE INSTRUCCIÓN INFERIOR --- */
         .instruction {
             position: absolute;
             bottom: 50px;
@@ -71,11 +73,12 @@
             100% { transform: scale(1.05); opacity: 1; }
         }
 
+        /* --- CONTENEDOR DEL JARDÍN --- */
         #garden {
             position: absolute;
             bottom: 0;
             width: 100%;
-            height: 85%; /* Aumentado para dar más espacio vertical */
+            height: 70%;
             display: flex;
             justify-content: center;
             align-items: flex-end;
@@ -83,53 +86,57 @@
             pointer-events: none;
         }
 
+        /* --- GEOMETRÍA DE LA PLANTA --- */
         .flower-wrapper {
             position: absolute;
             bottom: -20px;
             transform-origin: bottom center;
         }
 
-        /* Tallo más grueso */
+        /* Tallo con degradado verde */
         .stem {
-            width: 12px; /* Antes 8px */
+            width: 8px;
             background: linear-gradient(to top, #154c18, #388e3c);
-            border-radius: 6px;
+            border-radius: 4px;
             transform-origin: bottom center;
             position: relative;
             transition: height 2s cubic-bezier(0.25, 0.8, 0.25, 1);
-            box-shadow: 0 0 12px #4caf50;
+            box-shadow: 0 0 10px #4caf50;
         }
 
-        /* Contenedor más grande para la flor */
+        /* --- CONTENEDOR DE LA FLOR (Centro matemático exacto) --- */
         .flower-head-container {
-            width: 60px; /* Antes 40px */
-            height: 60px; /* Antes 40px */
+            width: 40px;
+            height: 40px;
             position: absolute;
-            top: -60px;
-            left: -24px; /* Centrado perfecto sobre el tallo de 12px (30 - 6) */
+            top: -40px;
+            left: -16px; /* Centra los 40px sobre el tallo de 8px */
             transform-origin: bottom center;
             transform: scale(0);
-            transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1); /* Efecto rebote suave */
             pointer-events: none;
             z-index: 2;
         }
 
-        /* Pétalos más largos y anchos */
+        /* --- PÉTALOS PERFECTAMENTE UNIDOS --- */
         .petal {
             position: absolute;
-            bottom: 50%; 
+            bottom: 50%; /* La base del pétalo se ancla exactamente en el centro de la flor */
             left: 50%;
-            width: 24px; /* Antes 16px */
-            height: 42px; /* Antes 28px */
-            margin-left: -12px; /* Mitad del ancho para centrar */
+            width: 16px;
+            height: 28px;
+            margin-left: -8px; /* Lo centra horizontalmente */
             background: linear-gradient(to top, #ff9800, #ffeb3b);
-            border-radius: 50% 50% 20% 20%; 
-            box-shadow: 0 0 15px rgba(255, 235, 59, 0.8);
-            transform-origin: center bottom; 
+            border-radius: 50% 50% 20% 20%; /* Forma natural de pétalo de margarita/girasol */
+            box-shadow: 0 0 12px rgba(255, 235, 59, 0.8);
+            transform-origin: center bottom; /* El eje de rotación es la punta inferior matemática */
+            
+            /* Estado inicial: Todos los pétalos están superpuestos mirando hacia arriba formando el capullo */
             transform: rotate(0deg); 
             transition: transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
+        /* Estado abierto: Se abren en abanico. CERO traslación, solo rotación sobre el origen. */
         .flower-head-container.florecer .petal-0 { transform: rotate(0deg); }
         .flower-head-container.florecer .petal-1 { transform: rotate(45deg); }
         .flower-head-container.florecer .petal-2 { transform: rotate(90deg); }
@@ -139,18 +146,18 @@
         .flower-head-container.florecer .petal-6 { transform: rotate(270deg); }
         .flower-head-container.florecer .petal-7 { transform: rotate(315deg); }
 
-        /* Centro más grande */
+        /* --- CENTRO REALISTA DE LA FLOR --- */
         .petal-center {
             position: absolute;
-            bottom: 50%; 
+            bottom: 50%; /* Se alinea con el eje de los pétalos */
             left: 50%;
-            width: 30px; /* Antes 20px */
-            height: 30px; /* Antes 20px */
-            margin-left: -15px;
-            margin-bottom: -15px; 
+            width: 20px;
+            height: 20px;
+            margin-left: -10px;
+            margin-bottom: -10px; /* Centrado perfecto sobre el punto de origen */
             background: radial-gradient(circle, #ffe082, #ff8f00);
             border-radius: 50%;
-            box-shadow: 0 0 20px #ffeb3b, inset 0 0 8px rgba(216, 107, 0, 0.8);
+            box-shadow: 0 0 15px #ffeb3b, inset 0 0 5px rgba(216, 107, 0, 0.8);
             transform: scale(0);
             transition: transform 1s ease 0.6s;
             z-index: 5;
@@ -158,10 +165,10 @@
 
         .flower-head-container.florecer .petal-center { transform: scale(1); }
 
-        /* Hojas más grandes */
+        /* --- HOJAS DEL TALLO --- */
         .leaf {
-            width: 50px; /* Antes 35px */
-            height: 85px; /* Antes 60px */
+            width: 35px;
+            height: 60px;
             background: linear-gradient(to top right, #2e7d32, #4caf50);
             border-radius: 0 100% 0 100%;
             position: absolute;
@@ -169,20 +176,34 @@
             transform-origin: bottom left;
             transform: scale(0) rotate(0deg);
             transition: transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 0 15px #4caf50;
+            box-shadow: 0 0 10px #4caf50;
         }
 
-        .leaf.left { left: -45px; border-radius: 100% 0 100% 0; transform-origin: bottom right; }
-        .leaf.right { right: -45px; }
+        .leaf.left { left: -30px; border-radius: 100% 0 100% 0; transform-origin: bottom right; }
+        .leaf.right { right: -30px; }
 
-        /* Polen un poco más grande */
+        /* --- HIERBA EN LA BASE --- */
+        .grass-blade {
+            position: absolute;
+            bottom: -5px;
+            width: 6px;
+            height: 40px;
+            background: linear-gradient(to top, #113311, #4caf50);
+            border-radius: 50% 50% 0 0;
+            transform-origin: bottom center;
+            opacity: 0;
+            transition: all 1s ease;
+            box-shadow: 0 0 5px #113311;
+        }
+
+        /* --- POLEN FLOTANTE MÁGICO --- */
         .pollen {
             position: absolute;
-            width: 7px;
-            height: 7px;
+            width: 5px;
+            height: 5px;
             background: #fffb8f;
             border-radius: 50%;
-            box-shadow: 0 0 15px #ffeb3b, 0 0 25px #fff;
+            box-shadow: 0 0 12px #ffeb3b, 0 0 20px #fff;
             opacity: 0;
             transition: all 2.5s ease-out;
             pointer-events: none;
@@ -192,13 +213,14 @@
 <body>
 
     <h1 class="title">Feliz Día de las<br>Flores Amarillas</h1>
-    <div class="sunflower">🌻</div>
+    <div class="sunflower-emoji">🌻</div>
 
     <div id="garden"></div>
 
     <p class="instruction" id="instruction">Presiona para ver la magia...</p>
 
     <script>
+        // 1. Crear el cielo estrellado
         function createStars() {
             const numStars = 80;
             for (let i = 0; i < numStars; i++) {
@@ -215,39 +237,67 @@
         }
         createStars();
 
+        // 2. Lógica para el jardín y la animación secuencial
         const garden = document.getElementById('garden');
         const instruction = document.getElementById('instruction');
         let isGrown = false;
+
+        // Añadir hierba en la base
+        function createGrass() {
+            for(let i = 0; i < 40; i++) {
+                const grass = document.createElement('div');
+                grass.className = 'grass-blade';
+                grass.style.left = `${Math.random() * 100}vw`;
+                grass.style.height = `${Math.random() * 30 + 30}px`;
+                grass.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
+                garden.appendChild(grass);
+            }
+        }
+        createGrass();
 
         function growFlowers() {
             if (isGrown) return; 
             isGrown = true;
             instruction.style.opacity = '0'; 
             
-            // Alturas incrementadas para hacer las flores notablemente más grandes
+            // Hacer aparecer la hierba
+            const grassBlades = document.querySelectorAll('.grass-blade');
+            grassBlades.forEach(blade => blade.style.opacity = '0.8');
+
+            // Configuración de cada flor: altura, inclinación y retraso secuencial
             const flowerData = [
-                { height: 420, angle: 0, delay: 0 },
-                { height: 350, angle: -20, delay: 300 },
-                { height: 370, angle: 20, delay: 500 },
-                { height: 260, angle: -35, delay: 800 },
-                { height: 280, angle: 35, delay: 1000 },
-                { height: 480, angle: -10, delay: 1200 },
-                { height: 500, angle: 10, delay: 1400 }
+                // CENTRAL (La primera en nacer)
+                { height: 320, angle: 0, delay: 0 }, 
+                // IZQUIERDA 1
+                { height: 280, angle: -20, delay: 400 }, 
+                // DERECHA 1
+                { height: 290, angle: 20, delay: 600 }, 
+                // IZQUIERDA EXTERIOR
+                { height: 210, angle: -35, delay: 1000 }, 
+                // DERECHA EXTERIOR
+                { height: 220, angle: 35, delay: 1200 },
+                // ADICIONALES PARA MÁS PLANTAS
+                { height: 360, angle: -10, delay: 1600 },
+                { height: 380, angle: 10, delay: 1800 }
             ];
 
             flowerData.forEach((data, index) => {
                 setTimeout(() => {
+                    // Contenedor individual de la flor
                     const wrapper = document.createElement('div');
                     wrapper.className = 'flower-wrapper';
                     wrapper.style.transform = `rotate(${data.angle}deg)`;
 
+                    // Tallo
                     const stem = document.createElement('div');
                     stem.className = 'stem';
                     stem.style.height = '0px';
 
+                    // Contenedor de la flor
                     const headContainer = document.createElement('div');
                     headContainer.className = 'flower-head-container';
                     
+                    // Crear 8 pétalos radiales y un centro
                     for(let i = 0; i < 8; i++) {
                         const petal = document.createElement('div');
                         petal.className = `petal petal-${i}`;
@@ -257,48 +307,57 @@
                     center.className = 'petal-center';
                     headContainer.appendChild(center);
 
+                    // Hojas
                     const leaf = document.createElement('div');
                     leaf.className = `leaf ${index % 2 === 0 ? 'left' : 'right'}`;
 
+                    // Ensamblar la planta
                     stem.appendChild(headContainer);
                     stem.appendChild(leaf);
                     wrapper.appendChild(stem);
                     garden.appendChild(wrapper);
 
+                    // --- Secuencia de Animación de la Planta ---
                     setTimeout(() => {
-                        stem.style.height = `${data.height}px`;
+                        stem.style.height = `${data.height}px`; // El tallo sube
+                        
+                        // Las hojas se despliegan
                         leaf.style.transform = index % 2 === 0 ? 'scale(1) rotate(-45deg)' : 'scale(1) rotate(45deg)';
 
+                        // 1. El capullo cerrado aparece mientras sube
                         setTimeout(() => {
                             headContainer.style.transform = 'scale(1)';
                         }, 400); 
 
+                        // 2. ¡La flor se abre! Se despliegan los pétalos
                         setTimeout(() => {
                             headContainer.classList.add('florecer');
                         }, 1600); 
 
+                        // 3. Generar polen flotante MÁGICO al florecer
                         for(let p = 0; p < 6; p++) {
                             setTimeout(() => {
                                 const pollen = document.createElement('div');
                                 pollen.className = 'pollen';
-                                pollen.style.left = `${Math.random() * 60 - 30}px`;
-                                pollen.style.bottom = `${data.height + 30}px`;
+                                pollen.style.left = `${Math.random() * 50 - 25}px`;
+                                pollen.style.bottom = `${data.height + 20}px`; // Salir de la flor abierta
                                 garden.appendChild(pollen);
                                 
                                 setTimeout(() => {
                                     pollen.style.opacity = '0.9';
-                                    pollen.style.transform = `translateY(-${Math.random() * 100 + 80}px) translateX(${Math.random() * 80 - 40}px) scale(1.5)`;
+                                    pollen.style.transform = `translateY(-${Math.random() * 80 + 60}px) translateX(${Math.random() * 60 - 30}px) scale(1.5)`;
                                 }, 50);
 
                             }, 2200 + (p * 150));
                         }
 
-                    }, 50);
+                    }, 50); // Pequeño retraso para que el elemento exista en el DOM
 
                 }, data.delay);
             });
         }
 
+        // Detectar clics o toques en la pantalla
         document.body.addEventListener('mousedown', growFlowers);
         document.body.addEventListener('touchstart', growFlowers);
     </script>
