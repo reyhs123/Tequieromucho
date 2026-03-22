@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feliz Día de las Flores Amarillas</title>
     <style>
-        /* --- ESTILOS BASE Y FONDO --- */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -15,7 +14,6 @@
         body, html {
             width: 100%;
             height: 100%;
-            /* Cielo nocturno idéntico a tu referencia */
             background: radial-gradient(circle at bottom, #11233b 0%, #060b14 100%);
             overflow: hidden;
             font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
@@ -26,7 +24,6 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* --- CIELO ESTRELLADO --- */
         #stars-container {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -46,7 +43,6 @@
             100% { opacity: 0.9; transform: scale(1.2); box-shadow: 0 0 5px white; }
         }
 
-        /* --- TEXTOS SUPERIORES --- */
         .header {
             margin-top: 12vh;
             text-align: center;
@@ -69,7 +65,6 @@
             filter: drop-shadow(0 0 10px #ffc107);
         }
 
-        /* --- TEXTO DE INSTRUCCIÓN --- */
         .instruction {
             position: absolute;
             bottom: 60px;
@@ -87,7 +82,6 @@
             100% { transform: scale(1.05); opacity: 1; }
         }
 
-        /* --- CONTENEDOR DEL JARDÍN --- */
         #garden {
             position: absolute;
             bottom: -20px;
@@ -100,26 +94,23 @@
             pointer-events: none;
         }
 
-        /* --- DISEÑO DE LA PLANTA Y FLOR --- */
         .plant-wrapper {
             position: absolute;
             bottom: 0;
             transform-origin: bottom center;
         }
 
-        /* Tallo */
         .stem {
             width: 8px;
             background: linear-gradient(to top, #1e5e22, #4caf50);
             border-radius: 4px;
             transform-origin: bottom center;
             position: relative;
-            height: 0px; /* Crece dinámicamente */
+            height: 0px;
             transition: height 1.5s cubic-bezier(0.4, 0.0, 0.2, 1);
             box-shadow: 0 0 10px rgba(76, 175, 80, 0.6);
         }
 
-        /* Hojas verdes del tallo */
         .leaf {
             position: absolute;
             width: 25px;
@@ -136,7 +127,6 @@
         .leaf.left { left: -20px; border-radius: 100% 0 100% 0; transform-origin: bottom right; }
         .leaf.right { right: -20px; }
 
-        /* Contenedor de la cabeza de la flor (se ancla arriba del tallo) */
         .flower-head {
             position: absolute;
             top: 0;
@@ -147,7 +137,6 @@
             z-index: 10;
         }
 
-        /* Centro de la flor (Círculo naranja/marrón como en tu foto) */
         .flower-center {
             position: absolute;
             width: 20px;
@@ -159,27 +148,25 @@
             box-shadow: 0 0 10px #ff9800, inset 0 0 5px rgba(0,0,0,0.3);
             transform: scale(0);
             transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-            z-index: 2; /* Por encima de los pétalos */
+            z-index: 2;
         }
 
-        /* Pétalos (Amarillos, ovalados y reales) */
         .petal {
             position: absolute;
             width: 14px;
             height: 38px;
             background: linear-gradient(to top, #ff9800, #ffeb3b);
-            border-radius: 50px; /* Da la forma de pétalo redondeado */
+            border-radius: 50px;
             box-shadow: 0 0 12px rgba(255, 235, 59, 0.7);
-            top: -38px; /* Ancla la base del pétalo al centro exacto */
+            top: -38px;
             left: -7px;
             transform-origin: bottom center;
             opacity: 0;
             transform: scale(0) rotate(0deg);
             transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 1; /* Por debajo del centro */
+            z-index: 1;
         }
 
-        /* Partículas mágicas que salen de la flor */
         .sparkle {
             position: absolute;
             width: 5px; height: 5px;
@@ -206,7 +193,6 @@
     <div class="instruction" id="instruction">Presiona para ver la magia...</div>
 
     <script>
-        // 1. GENERAR CIELO ESTRELLADO
         const starsContainer = document.getElementById('stars-container');
         for (let i = 0; i < 80; i++) {
             const star = document.createElement('div');
@@ -220,20 +206,18 @@
             starsContainer.appendChild(star);
         }
 
-        // 2. LÓGICA DE ANIMACIÓN DE LAS FLORES (Basado en la foto 1000093985)
         const garden = document.getElementById('garden');
         let animated = false;
 
-        // Estructura del ramo: Altura, Ángulo de inclinación y Retraso en milisegundos
         const bouquet = [
-            { height: 350, angle: 0, delay: 0 },       // Centro Alta
-            { height: 280, angle: -20, delay: 200 },   // Izquierda Alta
-            { height: 290, angle: 20, delay: 400 },    // Derecha Alta
-            { height: 200, angle: -35, delay: 600 },   // Izquierda Media
-            { height: 210, angle: 35, delay: 800 },    // Derecha Media
-            { height: 140, angle: -50, delay: 1000 },  // Izquierda Baja
-            { height: 150, angle: 50, delay: 1200 },   // Derecha Baja
-            { height: 120, angle: 0, delay: 1400 }     // Centro Baja
+            { height: 350, angle: 0, delay: 0 },
+            { height: 280, angle: -20, delay: 200 },
+            { height: 290, angle: 20, delay: 400 },
+            { height: 200, angle: -35, delay: 600 },
+            { height: 210, angle: 35, delay: 800 },
+            { height: 140, angle: -50, delay: 1000 },
+            { height: 150, angle: 50, delay: 1200 },
+            { height: 120, angle: 0, delay: 1400 }
         ];
 
         function startMagic() {
@@ -243,31 +227,25 @@
 
             bouquet.forEach((flower) => {
                 setTimeout(() => {
-                    // Contenedor principal de esta planta
                     const plant = document.createElement('div');
                     plant.className = 'plant-wrapper';
                     plant.style.transform = `rotate(${flower.angle}deg)`;
 
-                    // Tallo
                     const stem = document.createElement('div');
                     stem.className = 'stem';
 
-                    // Hojas
                     const leafLeft = document.createElement('div');
                     leafLeft.className = 'leaf left';
                     const leafRight = document.createElement('div');
                     leafRight.className = 'leaf right';
 
-                    // Cabeza de la flor
                     const flowerHead = document.createElement('div');
                     flowerHead.className = 'flower-head';
 
-                    // Centro de la flor (El círculo naranja)
                     const center = document.createElement('div');
                     center.className = 'flower-center';
                     flowerHead.appendChild(center);
 
-                    // Pétalos (Creamos 10 pétalos por flor)
                     const numPetals = 10;
                     const petalsArray = [];
                     for (let i = 0; i < numPetals; i++) {
@@ -277,39 +255,29 @@
                         petalsArray.push(petal);
                     }
 
-                    // Ensamblar todo
                     stem.appendChild(leafLeft);
                     stem.appendChild(leafRight);
                     stem.appendChild(flowerHead);
                     plant.appendChild(stem);
                     garden.appendChild(plant);
 
-                    // --- SECUENCIA DE ANIMACIÓN ---
-                    
-                    // 1. Crece el tallo
                     setTimeout(() => {
                         stem.style.height = `${flower.height}px`;
                         
-                        // 2. Salen las hojas a mitad de camino
                         setTimeout(() => {
                             leafLeft.style.transform = 'scale(1) rotate(-45deg)';
                             leafRight.style.transform = 'scale(1) rotate(45deg)';
                         }, 600);
 
-                        // 3. Cuando el tallo termina de crecer, aparece el centro y florecen los pétalos
                         setTimeout(() => {
-                            // Aparece el centro naranja
                             center.style.transform = 'scale(1)';
 
-                            // Se abren los pétalos en círculo perfecto
                             petalsArray.forEach((petal, i) => {
                                 const angle = (i * 360) / numPetals;
-                                // rotate(ángulo) los gira en círculo. translateY(-8px) los empuja un poco hacia afuera del centro
                                 petal.style.transform = `rotate(${angle}deg) translateY(-8px) scale(1)`;
                                 petal.style.opacity = '1';
                             });
 
-                            // 4. Magia de brillos saliendo de la flor
                             for(let s = 0; s < 4; s++) {
                                 setTimeout(() => {
                                     const sparkle = document.createElement('div');
@@ -324,7 +292,7 @@
                                 }, 800 + (s * 200));
                             }
 
-                        }, 1300); // Se ejecuta cuando el tallo casi llega arriba
+                        }, 1300);
 
                     }, 50);
 
@@ -332,7 +300,6 @@
             });
         }
 
-        // Iniciar al hacer clic en cualquier parte
         document.body.addEventListener('click', startMagic);
         document.body.addEventListener('touchstart', startMagic);
     </script>
