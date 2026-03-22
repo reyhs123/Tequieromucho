@@ -116,14 +116,14 @@
             pointer-events: none;
         }
 
-        /* Estilo base de los pétalos de la flor */
+        /* Estilo base de los pétalos de la flor - MEJORADO */
         .petal {
             position: absolute;
             top: 0;
             left: 50%;
-            width: 15px;
-            height: 25px;
-            margin-left: -7.5px;
+            width: 16px;
+            height: 28px;
+            margin-left: -8px;
             background: radial-gradient(circle at 50% 100%, #ff9800, #ffeb3b);
             border-radius: 0 100% 0 100%;
             box-shadow: 0 0 15px #ffeb3b, inset 0 -5px 10px #ff9800;
@@ -132,29 +132,27 @@
             transition: transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Lógica para posicionar los pétalos radialmente cuando florece */
-        /* Pétalo central */
-        .flower-head-container.florecer .petal-0 { transform: rotate(0deg) scale(1.1) translateY(-2px); }
+        /* Lógica para posicionar los pétalos radialmente cuando florece - 8 PÉTALOS UNIFORMES */
+        .flower-head-container.florecer .petal-0 { transform: rotate(0deg) scale(1.15) translateY(-8px); }
+        .flower-head-container.florecer .petal-1 { transform: rotate(45deg) scale(1.15) translateX(18px) translateY(-8px); }
+        .flower-head-container.florecer .petal-2 { transform: rotate(90deg) scale(1.15) translateX(20px); }
+        .flower-head-container.florecer .petal-3 { transform: rotate(135deg) scale(1.15) translateX(18px) translateY(8px); }
+        .flower-head-container.florecer .petal-4 { transform: rotate(180deg) scale(1.15) translateY(8px); }
+        .flower-head-container.florecer .petal-5 { transform: rotate(225deg) scale(1.15) translateX(-18px) translateY(8px); }
+        .flower-head-container.florecer .petal-6 { transform: rotate(270deg) scale(1.15) translateX(-20px); }
+        .flower-head-container.florecer .petal-7 { transform: rotate(315deg) scale(1.15) translateX(-18px) translateY(-8px); }
 
-        /* Pétalos exteriores */
-        .flower-head-container.florecer .petal-1 { transform: rotate(45deg) scale(1.1) translateX(15px) translateY(-5px); }
-        .flower-head-container.florecer .petal-2 { transform: rotate(90deg) scale(1.1) translateX(18px) translateY(-10px); }
-        .flower-head-container.florecer .petal-3 { transform: rotate(135deg) scale(1.1) translateX(15px) translateY(-15px); }
-        .flower-head-container.florecer .petal-4 { transform: rotate(225deg) scale(1.1) translateX(-15px) translateY(-15px); }
-        .flower-head-container.florecer .petal-5 { transform: rotate(270deg) scale(1.1) translateX(-18px) translateY(-10px); }
-        .flower-head-container.florecer .petal-6 { transform: rotate(315deg) scale(1.1) translateX(-15px) translateY(-5px); }
-
-        /* Centro de la flor */
+        /* Centro de la flor - MEJORADO */
         .petal-center {
             position: absolute;
             top: 15px;
             left: 50%;
-            width: 10px;
-            height: 10px;
-            margin-left: -5px;
-            background: #ffcc00;
+            width: 12px;
+            height: 12px;
+            margin-left: -6px;
+            background: radial-gradient(circle at 40% 40%, #ffff00, #ffcc00);
             border-radius: 50%;
-            box-shadow: 0 0 10px #fff98f, inset 0 0 5px #8c6e00;
+            box-shadow: 0 0 12px #fff98f, inset 0 0 8px #8c6e00;
             transform: scale(0);
             transition: transform 1.5s ease 0.8s;
         }
@@ -185,16 +183,16 @@
             right: -30px;
         }
 
-        /* Brillo de polen flotante */
+        /* Brillo de polen flotante - MEJORADO */
         .pollen {
             position: absolute;
-            width: 4px;
-            height: 4px;
+            width: 5px;
+            height: 5px;
             background: #fffb8f;
             border-radius: 50%;
-            box-shadow: 0 0 10px #ffeb3b;
+            box-shadow: 0 0 12px #ffeb3b;
             opacity: 0;
-            transition: all 2.5s ease-out;
+            transition: all 3s ease-out;
             pointer-events: none;
         }
     </style>
@@ -266,8 +264,8 @@
                     const headContainer = document.createElement('div');
                     headContainer.className = 'flower-head-container';
                     
-                    // Crear 7 pétalos radiales y un centro
-                    for(let i = 0; i < 7; i++) {
+                    // Crear 8 pétalos radiales (distribuidos uniformemente cada 45°) y un centro
+                    for(let i = 0; i < 8; i++) {
                         const petal = document.createElement('div');
                         petal.className = `petal petal-${i}`;
                         headContainer.appendChild(petal);
@@ -302,20 +300,20 @@
                         }, 1600); 
 
                         // 3er paso: Generar polen flotante al florecer
-                        for(let p = 0; p < 4; p++) {
+                        for(let p = 0; p < 6; p++) {
                             setTimeout(() => {
                                 const pollen = document.createElement('div');
                                 pollen.className = 'pollen';
-                                pollen.style.left = `${Math.random() * 40 - 20}px`;
+                                pollen.style.left = `${Math.random() * 50 - 25}px`;
                                 pollen.style.bottom = `${data.height + 20}px`; // Salir de la flor
                                 garden.appendChild(pollen);
                                 
                                 setTimeout(() => {
                                     pollen.style.opacity = '0.8';
-                                    pollen.style.transform = `translateY(-${Math.random() * 60 + 40}px) translateX(${Math.random() * 40 - 20}px)`;
+                                    pollen.style.transform = `translateY(-${Math.random() * 80 + 60}px) translateX(${Math.random() * 60 - 30}px)`;
                                 }, 50);
 
-                            }, 2400 + (p * 200));
+                            }, 2400 + (p * 150));
                         }
 
                     }, 50);
